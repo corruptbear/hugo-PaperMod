@@ -69,8 +69,7 @@
     font-size: 12px;
 }
 
-.post-content a,
-.toc a:hover {
+.post-content a {
     box-shadow: 0 1px 0;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
@@ -266,17 +265,34 @@
     padding: 0.4em;
 }
 
-.dark .toc {
-    background: var(--entry);
+.toc.side {
+    font-size: .8em;
+}
+
+@media screen and (min-width: 1350px) {
+    .toc.side {
+        position: fixed;
+        top: 118px;
+        z-index: 1;
+        max-height: calc(100% - 150px);
+        overflow: auto;
+    }
+    .toc.side::-webkit-scrollbar-thumb {
+        border: 5px solid var(--code-bg);
+    }
+    .toc.side.left {
+        left: 15px;
+        width: 250px;
+    }
+    .toc.side.right {
+        right: 15px;
+        width: 265px;
+    }
 }
 
 .toc details summary {
-    cursor: zoom-in;
-    margin-inline-start: 20px;
-}
-
-.toc details[open] summary {
-    cursor: zoom-out;
+    cursor: pointer;
+    margin-inline-start: 15px;
 }
 
 .toc .details {
@@ -285,12 +301,27 @@
 }
 
 .toc .inner {
-    margin: 0 20px;
-    padding: 10px 20px;
+    padding: 10px 15px 5px 35px;
 }
 
+.toc ul {
+    margin: 0;
+    padding: 0;
+}
 .toc li ul {
-    margin-inline-start: var(--gap);
+    margin-inline-start: 20px;
+}
+.toc li a {
+    line-height: 1.5em;
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: block;
+}
+.toc li a.active {
+    background-color: var(--link-background-color);
+}
+.toc li a:hover {
+    text-decoration: underline;
 }
 
 .toc summary:focus {
@@ -309,11 +340,6 @@
 
 .post-tags a,
 .share-buttons,
-.paginav {
-    border-radius: var(--radius);
-    background: var(--code-bg);
-    border: 1px solid var(--border);
-}
 
 .post-tags a {
     display: block;
@@ -326,9 +352,6 @@
 }
 
 .post-tags a:hover,
-.paginav a:hover {
-    background: var(--border);
-}
 
 .share-buttons {
     margin: 14px 0;
@@ -359,17 +382,20 @@ h6:hover .anchor {
     user-select: none;
 }
 
+
+
 .paginav {
-    margin: 10px 0;
+    margin-top: var(--content-gap);
     display: flex;
     line-height: 30px;
     border-radius: var(--radius);
 }
 
-.paginav a {
-    padding-inline-start: 14px;
-    padding-inline-end: 14px;
-    border-radius: var(--radius);
+.paginav svg {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.125em;
 }
 
 .paginav .title {
@@ -384,7 +410,10 @@ h6:hover .anchor {
     width: 50%;
 }
 
-.paginav span:hover:not(.title) {
+.paginav a span {
+    transition: var(--link-transition);
+}
+.paginav a:hover span:not(.title) {
     box-shadow: 0 1px 0;
 }
 
