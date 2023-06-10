@@ -3,9 +3,12 @@
     --content-gap: 20px;
     --nav-width: 1024px;
     --main-width: 720px;
+    --post-width: 800px;
     --header-height: 60px;
     --footer-height: 60px;
     --radius: 8px;
+    --monospace: "Lucida Console", Monaco, "Consolas", monospace;
+
     --theme: rgb(255, 255, 255);
     --entry: rgb(255, 255, 255);
     --primary: rgb(30, 30, 30);
