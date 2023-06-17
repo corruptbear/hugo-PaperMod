@@ -189,6 +189,10 @@
     margin-bottom: 0;
 }
 
+.post-content .chroma {
+    border-radius: var(--radius);
+}
+
 .post-content code {
     margin: auto 4px;
     padding: 4px 6px;
@@ -212,6 +216,11 @@
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+}
+
+.post-content .chroma code {
+    background-color: inherit;
+    font-family: var(--monospace);
 }
 
 .post-content blockquote {

@@ -17,7 +17,7 @@
     <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
         {{- block "main" . }}{{ end }}
     </main>
-    {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+    {{ partialCached "footer.html" . .Layout .Kind (.Page.Store.Get "hasMermaid") (.Param "hideFooter") (.Param "ShowCodeCopyButtons")  -}}
 </body>
 
 </html>

@@ -228,7 +228,6 @@
     }
   })();
   </script>
-
 {{- /* InstantClick.js */}}
 {{- if (.Param "EnableInstantClick") }}
 {{- $instantclick := resources.Get "js/instantclick.js" }}
@@ -243,6 +242,12 @@
       //mathjax
       if (window.MathJax){
          MathJax.Hub.Queue(["Typeset",MathJax.Hub]);}
+      /*
+       if (window.mermaid) {
+          console.log("mermaid already exists");
+          //console.log("mermaid evaluate to true");
+          mermaid.run({querySelector: '.mermaid',});
+      }*/
       //isso
       //if (typeof Isso !== 'undefined'){
       //   console.log("isso found");
@@ -250,6 +255,6 @@
       //window.Isso.fetchComments();
       // }
      });
-   InstantClick.init('mousedown');
+   InstantClick.init("mousedown");
 </script>
 {{- end }} 
