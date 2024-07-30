@@ -1,0 +1,59 @@
+[params.fuseOpts] # need this for search
+isCaseSensitive = false
+shouldSort = true
+location = 0
+distance = 1_000
+threshold = 0.4
+minMatchCharLength = 0
+keys = [ "title", "permalink", "summary", "content" ]
+
+[[menu.main]]
+  name = "Archive" # for PaperMod
+  weight = 1
+  url  = "/archive/"
+[[menu.main]]
+  name = "About"
+  weight = 2
+  url = "/about"
+[[menu.main]]
+  identifier = "tags"
+  name = "Tags"
+  url = "/tags"
+  weight = 3
+[[menu.main]]
+  name = "🔖"
+  weight = 5
+  url = "/bookmarks"
+[[menu.main]] # for PaperMod
+  name = "Search"
+  weight = 4
+  url = "/search"
+
+[params.homeInfoParams]
+#Title = "KONOMAMA's BLOG"
+Content = """
+- 本blog服务器不在中国，但服务器本身没有被墙，所以从中国境内可以不用vpn直接打开
+- 本blog禁止了中国搜索引擎的爬虫，所以只能用google搜索到
+- 本blog服务器和后台程序由本人控制，不受审核限制
+- 本blog大部分外链中国境内需要vpn访问
+"""
+
+#[[params.socialIcons]]
+#name = "rss"
+#url = "https://blog.konomama.dev/index.xml"
+[[params.socialIcons]]
+name = "bilibili"
+url = "https://space.bilibili.com/1497254925/"
+[[params.socialIcons]]
+name = "lastfm"
+url = "https://www.last.fm/user/iloveWinnie"
+
+[markup.highlight]
+#noClasses = false #comment out if you use paperMod chroma
+codeFences = true
+guessSyntax = true
+lineNos = false
+style = "github" #"solarized-light" "github"
+[params.assets]
+disableHLJS = true
+pygmentsUseClasses = true
