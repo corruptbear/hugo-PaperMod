@@ -1,0 +1,24 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - deploy  # Replace with your branch
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with: 
+          ssh-private-key: ${{secrets.SSH_KEY_ORACLE}}
+      - name: Deploy to server
+        run: |
+            ssh -o StrictHostKeyChecking=no opc@129.151.202.216 << 'EOF'
+            cd blog/themes/PaperMod
+            git fetch origin
+            git reset --hard origin/deploy
+            cd ../..
+            hugo
+            EOF
