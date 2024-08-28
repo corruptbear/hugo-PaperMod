@@ -4,7 +4,7 @@
 {{- partial "index_profile.html" . }}
 {{- else }} {{/* if not profileMode */}}
 
-{{- if site.Params.archiveByDefault }}
+{{- if (and site.Params.archiveByDefault (not .Data.Term)) }}
 
 <header class="page-header">
   <h1>
@@ -32,10 +32,16 @@
   {{- end }}
 </header>
 
+{{- if .IsHome }}
 {{- partial "home_info.html" . }}
+{{- end }}
 
-{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- $pages := where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+{{- $pages := union .RegularPages .Sections }}
+
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+{{- end }}
 
 {{- if site.Params.ShowAllPagesInArchive }}
 {{- $pages = site.RegularPages }}
