@@ -20,5 +20,5 @@ jobs:
             git fetch origin
             git reset --hard origin/deploy
             cd ../..
-            hugo --verbose
+            hugo --ignoreCache --logLevel info
             EOF

@@ -18,39 +18,12 @@
 
 
 
-{{- $url := "https://comments.blog.konomama.dev/count" -}}
-{{- $postPermalink := .Page.RelPermalink -}}
-
-{{- $body := printf "[\"%s\"]" $postPermalink | safeJS -}}
-
-{{- $options := dict
-    "method" "POST"
-    "headers" (dict "Content-Type" "application/json" "Cache-Control" "no-cache")
-    "body" $body
-}} 
-
-{{- $response := resources.GetRemote $url $options -}}
-
-{{- with $response -}}
-  {{- if .Err -}}
-    <p>Error fetching remote resource: {{ .Err }}</p>
-  {{- else -}}
-    {{- $content := .Content -}}
+{{- $numberStr := partial "get-comment-number.html" . | safeHTML -}}
+{{- $number := $numberStr | int -}}
     
-    {{- /* Remove brackets and extract number */ -}}
-    {{- $numberStr := $content | replaceRE "^\\[\"?([0-9]+)\"?\\]?$" "$1" -}}
-    {{- $number := $numberStr | int -}}
-    
-    {{- if $number -}}
-      {{- $scratch.Add "meta" (printf "%d 💬" $number) }}
-
-    {{- end -}}
-  {{- end -}}
-{{- else -}}
-  <p>Unable to get remote resource {{ $url }}</p>
+{{- if $number -}}
+  {{- $scratch.Add "meta" (printf "%d 💬" $number) }}
 {{- end -}}
-
-
 
 
 
