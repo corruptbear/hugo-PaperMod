@@ -26,6 +26,45 @@
 {{- end -}}
 
 
+<div id="comment-count-container"></div>
+    <script>/*
+    document.addEventListener("DOMContentLoaded", function() {
+        // Create the comment-count element
+        const commentElement = document.createElement('span');
+        commentElement.id = 'comment-count';
+        commentElement.className = 'comment-count';
+        commentElement.innerText = 'Loading...'; // Default text while fetching data
+
+        // Find the container where you want to insert the comment count
+        const container = document.getElementById('comment-count-container');
+        if (container) {
+            // Append the new element to the specific container
+            container.appendChild(commentElement);
+        } else {
+            console.error('Comment count container not found');
+        }
+
+        // Fetch the comment count when the DOM is fully loaded
+        fetch('https://comments.blog.konomama.dev/count', {
+            method: 'POST',
+            body: JSON.stringify(["{{ .Page.RelPermalink }}"]), // Replace with actual permalink if not in Hugo template
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const commentCount = data[0];
+            commentElement.innerText = `${commentCount} 💬`;
+        })
+        .catch(error => {
+            console.error('Error fetching comment count:', error);
+        });
+    });*/
+</script>
+
+
+
 
 
 {{- with ($scratch.Get "meta") }}
