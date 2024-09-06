@@ -40,6 +40,7 @@ Content = """
 - 本blog部分外链及内嵌内容🇨🇳需vpn (有很多youtube, google系服务, wiki链接)
 - 有任何需要欢迎留言(邮箱非必填，除非订阅对话)
 - 若订阅对话请检查垃圾邮件: `mail.konomama.dev@gmail.com`
+- 请谨慎分享本blog文章到微信，腾讯会自动用爬虫爬取被分享的文章，可能是要检测是否有“非法内容”
 """
 
 [[params.socialIcons]]
