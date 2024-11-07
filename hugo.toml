@@ -55,6 +55,9 @@ url = "https://www.last.fm/user/iloveWinnie"
 [[params.socialIcons]]
 name = "steam"
 url = "https://steamcommunity.com/profiles/76561198844206094"
+[[params.socialIcons]]
+name = "letterboxd"
+url = "https://letterboxd.com/konomama/likes/films/"
 
 [markup.highlight]
 #noClasses = false #comment out if you use paperMod chroma
