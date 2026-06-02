@@ -1,0 +1,73 @@
+.sortable-table-header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25em;
+  position: relative;
+  width: 100%;
+  min-height: 1em;
+  padding: 0;
+  padding-right: 1em;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.sortable-table-header::before,
+.sortable-table-header::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-right: 0.32em solid transparent;
+  border-left: 0.32em solid transparent;
+}
+
+.sortable-table-header::before {
+  top: 50%;
+  transform: translateY(calc(-100% - 1px));
+  border-bottom: 0.32em solid var(--secondary);
+}
+
+.sortable-table-header::after {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(1px);
+  border-top: 0.32em solid var(--secondary);
+}
+
+.sortable-table-header:focus {
+  outline: 2px solid var(--tertiary);
+  outline-offset: 3px;
+}
+
+.sortable-table-sorted-asc .sortable-table-header::before,
+.sortable-table-sorted-desc .sortable-table-header::after {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+  border-top-color: transparent;
+  border-bottom-color: var(--primary);
+}
+
+.sortable-table-sorted-asc .sortable-table-header::after {
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+}
+
+.sortable-table-sorted-desc .sortable-table-header::before {
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.sortable-table-sorted-desc .sortable-table-header::after {
+  border-top-color: var(--primary);
+  border-bottom-color: transparent;
+}

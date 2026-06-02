@@ -229,6 +229,18 @@
   })();
   </script>
 
+{{- /* Sortable tables */}}
+{{- $sortableTables := resources.Get "js/sortable-tables.js" }}
+{{- if hugo.IsProduction }}
+  {{- $sortableTables = minify $sortableTables }}
+{{- end }}
+{{- if not site.Params.assets.disableFingerprinting }}
+  {{- $sortableTables = $sortableTables | fingerprint }}
+<script defer crossorigin="anonymous" src="{{ $sortableTables.RelPermalink }}" integrity="{{ $sortableTables.Data.Integrity }}" data-no-instant></script>
+{{- else }}
+<script defer src="{{ $sortableTables.RelPermalink }}" data-no-instant></script>
+{{- end }}
+
 {{- /* InstantClick.js */}}
 {{- if (.Param "EnableInstantClick") }}
 {{- $instantclick := resources.Get "js/instantclick.js" }}
