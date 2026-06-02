@@ -104,7 +104,7 @@
     });
   }
 
+  window.initSortableTables = initSortableTables;
   initSortableTables();
   document.addEventListener("DOMContentLoaded", initSortableTables);
-  document.addEventListener("instantclick:newpage", initSortableTables);
 })();

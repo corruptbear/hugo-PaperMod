@@ -229,19 +229,38 @@
   })();
   </script>
 
-{{- /* Sortable tables */}}
-{{- if in .Content "<table" }}
 {{- $sortableTables := resources.Get "js/sortable-tables.js" }}
 {{- if hugo.IsProduction }}
   {{- $sortableTables = minify $sortableTables }}
 {{- end }}
 {{- if not site.Params.assets.disableFingerprinting }}
   {{- $sortableTables = $sortableTables | fingerprint }}
-<script defer crossorigin="anonymous" src="{{ $sortableTables.RelPermalink }}" integrity="{{ $sortableTables.Data.Integrity }}" data-no-instant></script>
-{{- else }}
-<script defer src="{{ $sortableTables.RelPermalink }}" data-no-instant></script>
 {{- end }}
-{{- end }}
+<script data-no-instant>
+(function () {
+  var tableSelector = ".post-content table:not(.highlighttable):not(.lntable):not(.highlight table):not(.gist .highlight table)";
+  var sorterScript = "{{ $sortableTables.RelPermalink }}";
+
+  window.loadSortableTables = function () {
+    if (!document.querySelector(tableSelector)) return;
+    if (window.initSortableTables) return window.initSortableTables();
+    if (window.sortableTablesLoading) return;
+
+    window.sortableTablesLoading = true;
+    var script = document.createElement("script");
+    script.src = sorterScript;
+    script.setAttribute("data-no-instant", "");
+    {{- if not site.Params.assets.disableFingerprinting }}
+    script.integrity = "{{ $sortableTables.Data.Integrity }}";
+    script.crossOrigin = "anonymous";
+    {{- end }}
+    document.head.appendChild(script);
+  };
+
+  window.loadSortableTables();
+  document.addEventListener("DOMContentLoaded", window.loadSortableTables);
+})();
+</script>
 
 {{- /* InstantClick.js */}}
 {{- if (.Param "EnableInstantClick") }}
@@ -253,17 +272,24 @@
   {{- if site.Params.assets.disableFingerprinting }}integrity="{{ $instantclick.Data.Integrity }}"{{- end }}
 ></script>
 <script data-no-instant>
-      InstantClick.on('change', function(){  
-      //mathjax
-      if (window.MathJax){
-         MathJax.Hub.Queue(["Typeset",MathJax.Hub]);}
-      //isso
-      //if (typeof Isso !== 'undefined'){
-      //   console.log("isso found");
-      //   window.Isso.init();
-      //window.Isso.fetchComments();
-      // }
-     });
-   InstantClick.init('mousedown');
+  InstantClick.on('change', function () {
+    // mathjax
+    if (window.MathJax) {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+
+    if (window.loadSortableTables) {
+      window.loadSortableTables();
+    }
+
+    // isso
+    // if (typeof Isso !== 'undefined') {
+    //   console.log("isso found");
+    //   window.Isso.init();
+    //   window.Isso.fetchComments();
+    // }
+  });
+
+  InstantClick.init('mousedown');
 </script>
 {{- end }} 
