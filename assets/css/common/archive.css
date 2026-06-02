@@ -4,7 +4,7 @@
 }
 
 .archive-year {
-    margin-top: 40px;
+    margin-top: 32px;
 }
 
 .archive-year:not(:last-of-type) {
@@ -14,11 +14,11 @@
 .archive-month {
     display: flex;
     align-items: flex-start;
-    padding: 10px 0;
+    padding: 7px 0;
 }
 
 .archive-month-header {
-    margin: 25px 0;
+    margin: 20px 0;
     width: 200px;
 }
 
@@ -29,7 +29,7 @@
 .archive-entry {
     position: relative;
     padding: 5px;
-    margin: 10px 0;
+    margin: 7px 0;
 }
 
 .archive-entry-title {
