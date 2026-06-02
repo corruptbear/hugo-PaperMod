@@ -230,6 +230,7 @@
   </script>
 
 {{- /* Sortable tables */}}
+{{- if in .Content "<table" }}
 {{- $sortableTables := resources.Get "js/sortable-tables.js" }}
 {{- if hugo.IsProduction }}
   {{- $sortableTables = minify $sortableTables }}
@@ -239,6 +240,7 @@
 <script defer crossorigin="anonymous" src="{{ $sortableTables.RelPermalink }}" integrity="{{ $sortableTables.Data.Integrity }}" data-no-instant></script>
 {{- else }}
 <script defer src="{{ $sortableTables.RelPermalink }}" data-no-instant></script>
+{{- end }}
 {{- end }}
 
 {{- /* InstantClick.js */}}
