@@ -59,13 +59,12 @@ url = "https://steamcommunity.com/profiles/76561198844206094"
 name = "letterboxd"
 url = "https://letterboxd.com/konomama/likes/films/"
 
+[params.assets]
+disableHLJS = true
+
 [markup.highlight]
-#noClasses = false #comment out if you use paperMod chroma
 codeFences = true
 guessSyntax = true
 lineNos = false
-hl_inline = false
-style = "monokai" #"solarized-light" "github"
-[params.assets]
-disableHLJS = true
-pygmentsUseClasses = true
+noClasses = false
+style = "catppuccin-latte" #"solarized-light" "github"
