@@ -14,7 +14,9 @@
 {{- end -}}
 " id="top">
     {{- partialCached "header.html" . .Page -}}
-    <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
+    {{- $isPostsList := and (eq .Kind "section") (eq .Section "posts") }}
+    {{- $pagefindBody := not (or .IsHome (eq .Type "tags") $isPostsList (eq .Layout "archives")) }}
+    <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}"{{- if $pagefindBody }} data-pagefind-body{{- end }}>
         {{- block "main" . }}{{ end }}
     </main>
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") (.Page.Store.Get "hasMermaid") (.Page.Store.Get "hasABC") -}}

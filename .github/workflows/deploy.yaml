@@ -21,4 +21,5 @@ jobs:
             git reset --hard origin/deploy
             cd ../..
             hugo --ignoreCache --logLevel info
+            pagefind_extended --site public --force-language zh
             EOF
