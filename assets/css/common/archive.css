@@ -3,6 +3,46 @@
     font-size: 16px;
 }
 
+.archive-tag-filter {
+    margin: 0 -6px 18px;
+}
+
+.archive-tag-filter li {
+    margin: 6px;
+}
+
+.archive-tag-filter a.active {
+    background: var(--primary);
+    color: var(--theme);
+}
+
+.archive-tag-count-placeholder {
+    visibility: hidden;
+}
+
+.archive-filter-hidden {
+    display: none !important;
+}
+
+@media screen and (max-width: 768px) {
+    .archive-tag-filter {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        margin: 0 calc(var(--gap) * -1) 18px;
+        padding: 0 var(--gap) 6px;
+        scrollbar-width: none;
+    }
+
+    .archive-tag-filter::-webkit-scrollbar {
+        display: none;
+    }
+
+    .archive-tag-filter li {
+        flex: 0 0 auto;
+    }
+}
+
 .archive-year {
     margin-top: 32px;
 }

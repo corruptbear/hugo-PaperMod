@@ -227,7 +227,85 @@
       return rect.top
     }
   })();
-  </script>
+</script>
+
+<script data-no-instant>
+(function () {
+  function setHidden(element, hidden) {
+    element.classList.toggle("archive-filter-hidden", hidden);
+  }
+
+  function visibleEntries(container) {
+    return container.querySelectorAll(".archive-entry:not(.archive-filter-hidden)").length;
+  }
+
+  function updateCount(container) {
+    var count = container.querySelector("[data-archive-count]");
+    if (count) {
+      count.textContent = "  " + visibleEntries(container);
+    }
+  }
+
+  function hasTag(filter, tag) {
+    return Array.prototype.some.call(filter.querySelectorAll("[data-archive-tag]"), function (link) {
+      return link.dataset.archiveTag === tag;
+    });
+  }
+
+  window.applyArchiveTagFilter = function (tag) {
+    var filter = document.querySelector(".archive-tag-filter");
+    if (!filter) return;
+
+    var activeTag = tag || "";
+    if (activeTag && !hasTag(filter, activeTag)) {
+      activeTag = "";
+    }
+
+    document.querySelectorAll(".archive-entry").forEach(function (entry) {
+      var tags = entry.dataset.archiveTags || "";
+      setHidden(entry, Boolean(activeTag) && !tags.split(/\s+/).includes(activeTag));
+    });
+
+    document.querySelectorAll(".archive-month").forEach(function (month) {
+      var count = visibleEntries(month);
+      updateCount(month);
+      setHidden(month, count === 0);
+    });
+
+    document.querySelectorAll(".archive-year").forEach(function (year) {
+      var count = visibleEntries(year);
+      updateCount(year);
+      setHidden(year, count === 0);
+    });
+
+    filter.querySelectorAll("[data-archive-tag]").forEach(function (link) {
+      link.classList.toggle("active", link.dataset.archiveTag === activeTag);
+    });
+  };
+
+  window.initArchiveTagFilter = function () {
+    var filter = document.querySelector(".archive-tag-filter");
+    if (!filter) return;
+
+    window.applyArchiveTagFilter(new URLSearchParams(window.location.search).get("tag"));
+
+    if (filter.dataset.archiveTagFilterInitialized) return;
+    filter.dataset.archiveTagFilterInitialized = "true";
+    filter.addEventListener("click", function (event) {
+      var link = event.target.closest("[data-archive-tag]");
+      if (!link) return;
+
+      event.preventDefault();
+      var tag = link.dataset.archiveTag;
+      history.replaceState(null, "", tag ? "?tag=" + encodeURIComponent(tag) : window.location.pathname);
+      window.applyArchiveTagFilter(tag);
+    });
+  };
+
+  window.initArchiveTagFilter();
+  document.addEventListener("DOMContentLoaded", window.initArchiveTagFilter);
+})();
+</script>
 
 {{- $sortableTables := resources.Get "js/sortable-tables.js" }}
 {{- if hugo.IsProduction }}
@@ -280,6 +358,14 @@
 
     if (window.loadSortableTables) {
       window.loadSortableTables();
+    }
+
+    if (window.initArchiveTagFilter) {
+      window.initArchiveTagFilter();
+    }
+
+    if (window.initPagefindSearch) {
+      window.initPagefindSearch();
     }
 
     // isso

@@ -7,6 +7,11 @@
     margin: var(--gap) 0 calc(var(--gap) * 2) 0;
 }
 
+.home-info {
+    min-height: 220px;
+    margin-bottom: 28px;
+}
+
 .first-entry .entry-header {
     overflow: hidden;
     display: -webkit-box;

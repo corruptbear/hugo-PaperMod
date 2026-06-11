@@ -47,19 +47,33 @@
 {{- $pages = site.RegularPages }}
 {{- end }}
 
+{{- if .IsHome }}
+<ul class="terms-tags archive-tag-filter" aria-label="Filter posts by tag">
+  <li>
+    <a href="{{ .RelPermalink }}" class="active" data-archive-tag="" data-no-instant>All <sup class="archive-tag-count-placeholder"><strong><sup>0</sup></strong></sup></a>
+  </li>
+  {{- range site.Taxonomies.tags.ByCount }}
+  {{- $tag := .Page.Title | urlize }}
+  <li>
+    <a href="?tag={{ $tag | urlquery }}" data-archive-tag="{{ $tag }}" data-no-instant>{{ .Page.Title }} <sup><strong><sup>{{ .Count }}</sup></strong></sup></a>
+  </li>
+  {{- end }}
+</ul>
+{{- end }}
+
 {{- range $pages.GroupByPublishDate "2006" }}
 {{- if ne .Key "0001" }}
 <div class="archive-year">
   <h2 class="archive-year-header">
-    {{- replace .Key "0001" "" }}<sup class="archive-count">&nbsp;&nbsp;{{ len .Pages }}</sup>
+    {{- replace .Key "0001" "" }}<sup class="archive-count" data-archive-count>&nbsp;&nbsp;{{ len .Pages }}</sup>
   </h2>
   {{- range .Pages.GroupByDate "January" }}
   <div class="archive-month">
-    <h3 class="archive-month-header">{{- .Key }}<sup class="archive-count">&nbsp;&nbsp;{{ len .Pages }}</sup></h3>
+    <h3 class="archive-month-header">{{- .Key }}<sup class="archive-count" data-archive-count>&nbsp;&nbsp;{{ len .Pages }}</sup></h3>
     <div class="archive-posts">
       {{- range .Pages }}
       {{- if eq .Kind "page" }}
-      <div class="archive-entry">
+      <div class="archive-entry" data-archive-tags="{{ with .Params.tags }}{{ range . }} {{ . | urlize }}{{ end }}{{ end }}">
         <h3 class="archive-entry-title">
           {{- .Title | markdownify }}
           {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
