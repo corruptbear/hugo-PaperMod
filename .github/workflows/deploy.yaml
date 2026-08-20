@@ -2,24 +2,31 @@ name: Deploy
 on:
   push:
     branches:
-      - deploy  # Replace with your branch
+      - deploy
+permissions:
+  id-token: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{secrets.TS_OAUTH_CLIENT_ID}}
+          audience: ${{secrets.TS_AUDIENCE}}
+          tags: tag:ci
+          ping: oracle-bot
       - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: webfactory/ssh-agent@v0.10.0
         with: 
           ssh-private-key: ${{secrets.SSH_KEY_ORACLE}}
       - name: Deploy to server
         run: |
-            ssh -o StrictHostKeyChecking=no opc@129.151.202.216 << 'EOF'
+            ssh -o StrictHostKeyChecking=no opc@oracle-bot << 'EOF'
             cd blog/themes/PaperMod
             git fetch origin
             git reset --hard origin/deploy
             cd ../..
-            hugo --ignoreCache --logLevel info
+            hugo --ignoreCache --logLevel info --cleanDestinationDir
             pagefind_extended --site public --force-language zh
             EOF

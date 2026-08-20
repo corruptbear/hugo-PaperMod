@@ -336,6 +336,10 @@ var InstantClick = function(document, location) {
 
     $timing.ready = +new Date - $timing.start
 
+    if ($xhr.responseText.includes('/.within.website/x/cmd/anubis/')) {
+      $mustRedirect = true
+    }
+
     if ($xhr.getResponseHeader('Content-Type').match(/\/(x|ht|xht)ml/)) {
       var doc = document.implementation.createHTMLDocument('')
       doc.documentElement.innerHTML = removeNoscriptTags($xhr.responseText)
